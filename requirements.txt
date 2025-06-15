@@ -5,10 +5,13 @@ spacy
 matplotlib
 scikit-learn
 langchain
+langserve
 langchain_community
 langchain_text_splitters
 langchain_core
 langchain_ollama
+langchain_groq
+langchain_openai
 numpy
 pandas
 datasets
@@ -18,3 +21,7 @@ keras
 nltk
 ipykernel
 streamlit
+uvicorn
+openai
+fastapi
+sse_starlette
