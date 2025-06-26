@@ -1,0 +1,46 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Gemma QnA</title>
+</head>
+<body>
+  <h2>Ask the AI anything:</h2>
+  <input type="text" id="question" placeholder="Type your question..." size="50"/>
+  <button onclick="askQuestion()">Ask</button>
+  <p><strong>Response:</strong></p>
+  <div id="response" style="white-space: pre-wrap; font-family: monospace;"></div>
+
+    <script>
+    async function askQuestion() {
+        const question = document.getElementById("question").value;
+        const responseBox = document.getElementById("response");
+
+        responseBox.innerText = "Thinking...";
+
+        try {
+        const res = await fetch("http://localhost:8000/qna", {
+            method: "POST",
+            headers: {
+            "Content-Type": "application/json"
+            },
+            body: JSON.stringify({ question })
+        });
+
+        if (!res.ok) {
+            throw new Error("Server returned " + res.status);
+        }
+
+        const data = await res.json();
+        responseBox.innerText = data.answer;
+        } catch (error) {
+        console.error("Error fetching response:", error);
+        responseBox.innerText = "Something went wrong: " + error.message;
+        }
+    }
+    </script>
+
+</body>
+</html>
